@@ -1,0 +1,18 @@
+version: "3.9"  # optional since v1.27.0
+services:
+  rest-gateway:
+    build: ./gateway
+    ports:
+      - "8000:8000"
+    depends_on:
+      - celery
+      - redis
+  calculator-service:
+    build: ./calculator
+    depends_on:
+      - celery
+      - redis
+  celery:
+    image: celery:4.0
+  redis:
+    image: redis:7.0.2-alpine3.16
